@@ -1,13 +1,29 @@
 <script setup>
 import { IconChevronRight, IconCalendarEvent, IconPaperclip } from '@tabler/icons-vue';
 import { useRouter } from 'vue-router';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
+import { VueBottomSheet } from "@webzlodimir/vue-bottom-sheet";
+import  "@webzlodimir/vue-bottom-sheet/dist/style.css";
+import PageTest from '../components/BottomSheet.vue'
 
+const myBottomSheet = ref(null)
+const overlay = ref(true);
+const maxWidth = ref("420px");
+const maxHeight = ref("90%");
+const clickToClose = ref(true);
+const effect = ref("fx-default");
+const rounded = ref(true);
+const swipeAble = ref(true);
+const isFullScreen = ref(false);
+const overlayColorSelect = ref("#0000004D");
+const backgroundScrollable = ref(false);
+const backgroundClickable = ref(false);
 
 const router = useRouter();
 const selectSppdType = () => {
   console.log('SPPD Type clicked');
-  router.push('/sppd-type')
+  // router.push('/sppd-type')
+  myBottomSheet.value.open();
 };
 
 const selectTripTypeStatutory = () => {
@@ -80,7 +96,22 @@ const submit = () => {
     <h6 style="text-align: end;">Insert pdf, jpg, png filemax 5Mb</h6>
 
 
-
+    <vue-bottom-sheet 
+      :max-width="maxWidth"
+      :max-height="maxHeight"
+      :overlay="overlay"
+      :click-to-close="clickToClose"
+      :effect="effect"
+      :rounded="rounded"
+      :swipeAble="swipeAble"
+      :isFullScreen="isFullScreen"
+      :backgroundScrollable="backgroundScrollable"
+      :backgroundClickable="backgroundClickable"
+      :overlayColor="overlayColorSelect"
+      ref="myBottomSheet"
+      >
+    <PageTest />
+  </vue-bottom-sheet>
     
     <div class="submit-button">
     <button class="btn-submit" @click="submit">Submit</button>
